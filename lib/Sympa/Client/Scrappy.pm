@@ -123,6 +123,19 @@ sub rename_list {
         , new_robot    => $bot } );
 }
 
+sub install_pending_list {
+    my $self = shift;
+    my $request = {qw<
+        action_install_pending_list do 
+        notify yes
+        status open
+        list >
+        , @_ };
+
+    $self->post($request);
+
+}
+
 sub login {
     my ( $self, $login, $passwd ) = @_;
     die unless $self->post
