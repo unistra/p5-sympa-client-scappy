@@ -24,7 +24,7 @@ Sympa::Client::Scrappy is a Scrapper on 5.x to automate some adminsitration task
     $s->login( admin => 'seCr3t' );
     $s->rename_list( leaders => 'oldmen' );
 
-    map { say "$_->{from} want a list named $_->{name}" }
+    map { say "$_->{requestor} want a list named $_->{name}" }
     , @{ $s->get_pending_lists };
 
 =head1 SOURCES REPOSITORY
@@ -60,8 +60,8 @@ write an url relative to the robot.
 has $_ => qw< is rw required 1 >
     for qw< base bot >;
 
-has qw< ua is rw default >
-, sub { Scrappy->new };
+has qw< ua is rw >
+, default => sub { Scrappy->new };
 
 sub BUILDARGS {
     shift;
@@ -150,14 +150,14 @@ sub _extract_pending_list_request (_) {
     my $html = (shift)->{html};
     return () unless $html ~~ /set_pending_list_request/;
     my %data;
-    @data{qw< name desc from date  >} =
+    @data{qw< name desc requestor date  >} =
         map { $_->{text} } @{ $parser->select('td', $html)->data };
     \%data;
 }
 
 sub get_pending_lists {
     my $self = shift;
-    confess unless $self->get('get_pending_lists');
+    confess YAML::Dump $self->ua unless $self->get('get_pending_lists');
     map _extract_pending_list_request
     , @{  $self->ua->select('tr')->data }
 }
