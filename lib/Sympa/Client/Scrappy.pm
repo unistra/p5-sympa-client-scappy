@@ -5,11 +5,11 @@ use Scrappy::Scraper::Parser;
 use Moo;
 use Carp;
 
-#ABSTRACT:  Scrapper to Sympa 5.x administration console
+#ABSTRACT:  Scrapper to Sympa 6.x administration console
 
 =head1 SYNOPSIS
 
-Sympa::Client::Scrappy is a Scrapper on 5.x to automate some adminsitration tasks. i wrote it to manage requests directly from mutt/vim.
+Sympa::Client::Scrappy is a Scrapper on 6.x to automate some adminsitration tasks. i wrote it to manage requests directly from mutt/vim.
 
     my $s = Sympa::Client::Scrappy->new
     ( base => 'http://base.example.com/sympa'
