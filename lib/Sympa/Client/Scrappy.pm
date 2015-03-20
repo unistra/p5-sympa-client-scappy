@@ -1,4 +1,4 @@
-package Sympa::Client::Scrappy;
+package Sympa::Client::Scrappy; 
 use Modern::Perl;
 use Scrappy;
 use Scrappy::Scraper::Parser;
@@ -148,7 +148,7 @@ sub login {
 sub _extract_pending_list_request (_) {
     state $parser = Scrappy::Scraper::Parser->new;
     my $html = (shift)->{html};
-    return () unless $html ~~ /set_pending_list_request/;
+    return () unless $html =~ /set_pending_list_request/;
     my %data;
     @data{qw< name desc requestor date  >} =
         map { $_->{text} } @{ $parser->select('td', $html)->data };
