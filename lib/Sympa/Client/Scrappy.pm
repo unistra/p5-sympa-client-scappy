@@ -1,8 +1,12 @@
 package Sympa::Client::Scrappy; 
-use Modern::Perl;
 use Scrappy;
 use Scrappy::Scraper::Parser;
 use Moo;
+use strict;
+use warnings qw( FATAL all );
+use utf8;
+use open qw( :std :utf8 );
+use 5.20.0;
 use Carp;
 
 #ABSTRACT:  Scrapper to Sympa 6.x administration console
@@ -157,7 +161,7 @@ sub _extract_pending_list_request (_) {
 
 sub get_pending_lists {
     my $self = shift;
-    confess YAML::Dump $self->ua unless $self->get('get_pending_lists');
+    confess YAML::Dump($self->ua) unless $self->get('get_pending_lists');
     map _extract_pending_list_request
     , @{  $self->ua->select('tr')->data }
 }
