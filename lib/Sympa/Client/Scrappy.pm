@@ -167,4 +167,8 @@ sub get_pending_lists {
     , @{  $self->ua->select('tr')->data }
 }
 
+use experimental 'signatures';
+sub emails_of ($self, $list) { $self->get("dump/$list/light") }
+
+
 1;
