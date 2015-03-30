@@ -1,7 +1,7 @@
 package Sympa::Client::Scrappy; 
+use Moose;
 use Scrappy;
 use Scrappy::Scraper::Parser;
-use Moo;
 use strict;
 use warnings qw( FATAL all );
 use utf8;
@@ -64,8 +64,9 @@ write an url relative to the robot.
 has $_ => qw< is rw required 1 >
     for qw< base bot >;
 
+# one of Scrappy or Moose is buggy! randomly fail to load plugins 
 has qw< ua is rw >
-, default => sub { Scrappy->new };
+, default => sub { Scrappy->new( plugins => [] ) };
 
 sub BUILDARGS {
     shift;
